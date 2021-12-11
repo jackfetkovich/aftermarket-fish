@@ -11,7 +11,7 @@ class Position {
 public:
     Position();
     Position(std::string fen);
-    void print_bitboards();
+    void print_bitboards(bool graphical);
 };
 
 
