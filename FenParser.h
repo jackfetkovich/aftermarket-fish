@@ -11,9 +11,9 @@
 
 class FenParser {
 public:
-    std::map<std::string, int> parse(std::string fen);
+    std::map<std::string, uint64_t> parse(std::string fen);
 private:
-    void add_piece(int &bitboard, int pos);
+    void add_piece(uint64_t &bitboard, int pos);
 };
 
 

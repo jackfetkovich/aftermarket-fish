@@ -7,11 +7,11 @@
 #define CHESSENGINE_POSITION_H
 
 class Position {
-    std::map<std::string, int> bitboards;
+    std::map<std::string, uint64_t> bitboards;
 public:
     Position();
     Position(std::string fen);
-
+    void print_bitboards();
 };
 
 
