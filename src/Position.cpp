@@ -18,7 +18,18 @@ Position::Position(){
 
 void Position::print_bitboards(){
     for (auto x : this->bitboards) {
-        std::cout << x.first << " " << std::bitset<64>(x.second) << std::endl;
+        std::string board = std::bitset<64>(x.second).to_string();
+        std::cout << "******  " << x.first << "  ******" << std::endl;
+        for(int i = board.length()-1; i >= 0; i-- ){
+            std::cout << board.at(i);
+            if((i) % 8 == 0){
+                std::cout << "\n";
+            }
+        }
+        std::cout << std::endl;
+
+
+//        std::cout << x.first << " " << std::to_string(x.second) << std::endl;
     }
 }
 
