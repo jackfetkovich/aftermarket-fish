@@ -3,4 +3,4 @@ project(chessengine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(chessengine main.cpp FenParser.cpp FenParser.h Position.cpp Position.h)
+add_executable(chessengine src/main.cpp src/FenParser.cpp src/FenParser.h src/Position.cpp src/Position.h)
