@@ -1,6 +1,6 @@
 #include <iostream>
+#include "Position.h"
 
 int main(int argc, char *argv[]){
-    std::cout << "Hello world!" << std::endl;
-    return 0;
+    Position p = Position();
 }

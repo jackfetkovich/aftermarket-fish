@@ -3,4 +3,4 @@ project(chessengine)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(chessengine main.cpp bitboard.cpp bitboard.h)
+add_executable(chessengine main.cpp FenParser.cpp FenParser.h Position.cpp Position.h)
