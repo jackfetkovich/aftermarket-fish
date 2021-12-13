@@ -1,8 +1,21 @@
 
 #include "FenParser.h"
+#include "Util.h"
 #include <iostream>
 
 Position FenParser::parse(std::string fen) {
+    Util u = Util();
+    bool white_to_move;
+    bool w_k_eligible = false;
+    bool w_q_eligible = false;
+    bool b_k_eligible = false;
+    bool b_q_eligible = false;
+    int enpassant;
+    bool enpassant_passed = false;
+    int half_moves;
+    int moves;
+
+    int post_board_space_count = 0;
 
     uint64_t white_pawns = 0b0000000000000000000000000000000000000000000000000000000000000000;
     uint64_t white_rooks = 0b0000000000000000000000000000000000000000000000000000000000000000;
@@ -75,7 +88,6 @@ Position FenParser::parse(std::string fen) {
                         break;
                     case 'Q':
                         this->add_piece(white_queens, board_pos);
-                        std::cout << "WHITE QUEEN" << std::endl;
                         break;
                     case 'P':
                         this->add_piece(white_pawns, board_pos);
@@ -88,6 +100,51 @@ Position FenParser::parse(std::string fen) {
                 // If you added a piece to a bitboard, then the board position should be incremented
                 if (isPiece) {
                     board_pos++;
+                }
+            }
+        } else {
+            if(fen.at(i) == ' '){
+                post_board_space_count++;
+            } else {
+                if(post_board_space_count == 1 && isalpha(fen.at(i))) white_to_move = fen.at(i) == 'w'? true : false;
+                if(post_board_space_count == 2){
+                    if(fen.at(i) == '-'){
+                        w_k_eligible = false;
+                        w_q_eligible = false;
+                        b_k_eligible = false;
+                        b_q_eligible = false;
+                    } else {
+                        // TODO: Figure out why black is always allowed to castle
+                        switch(fen.at(i)){
+                            case 'K':
+                                w_k_eligible = true;
+                                break;
+                            case 'Q':
+                                w_q_eligible = true;
+                                break;
+                            case 'k':
+                                b_k_eligible = true;
+                                break;
+                            case 'q':
+                                b_q_eligible = true;
+                                break;
+                        }
+
+                    }
+                }
+                if(post_board_space_count == 3){
+                    if(fen.at(i) == '-'){
+                        enpassant = -1;
+                    } else {
+                        if(!enpassant_passed){
+//                            std::cout << fen.substr(i,2) << std::endl;
+                            enpassant = u.notation_to_square(fen.substr(i, 2));
+                            enpassant_passed = true;
+                        }
+                    }
+                }
+                if(post_board_space_count == 4){
+
                 }
             }
         }
@@ -112,7 +169,7 @@ Position FenParser::parse(std::string fen) {
     // Return the map containing all the bitboards
 //    return bitboards;
 
-    return Position(bitboards, false, false, false, false, -1, 10, 5);
+    return Position(bitboards, white_to_move, w_k_eligible, w_q_eligible, b_k_eligible, b_q_eligible, enpassant, 10, 5);
 }
 
 // Internal utility method to change the bit from 1 to 0 at the right position on the bitboard
@@ -121,4 +178,3 @@ void FenParser::add_piece(uint64_t &bitboard, int pos) {
 }
 
 
-}

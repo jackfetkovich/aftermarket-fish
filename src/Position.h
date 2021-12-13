@@ -12,13 +12,14 @@ class Position {
     bool w_q_eligible;
     bool b_k_eligible;
     bool b_q_eligible;
+    bool white_to_move;
     int enpassant;
     int half_moves;
     int moves;
 public:
-    Position(const std::map<std::string, uint64_t> &bitboards, bool wKEligible, bool wQEligible, bool bKEligible,
+    Position(const std::map<std::string, uint64_t> &bitboards, bool whiteToMove, bool wKEligible, bool wQEligible, bool bKEligible,
              bool bQEligible, int enpassant, int halfMoves, int moves);
-
+    void print_metadata();
     void print_bitboards(bool graphical);
 };
 

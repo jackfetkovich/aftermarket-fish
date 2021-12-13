@@ -11,7 +11,6 @@
 //}
 
 void Position::print_bitboards(bool graphical) {
-
     if (graphical) {
         for (auto x: this->bitboards) {
             std::string board = std::bitset<64>(x.second).to_string();
@@ -36,8 +35,10 @@ void Position::print_bitboards(bool graphical) {
     }
 }
 
-Position::Position(const std::map<std::string, uint64_t> &bitboards, bool wKEligible, bool wQEligible, bool bKEligible,
+Position::Position(const std::map<std::string, uint64_t> &bitboards, bool whiteToMove, bool wKEligible, bool wQEligible,
+                   bool bKEligible,
                    bool bQEligible, int enpassant, int halfMoves, int moves) : bitboards(bitboards),
+                                                                               white_to_move(whiteToMove),
                                                                                w_k_eligible(wKEligible),
                                                                                w_q_eligible(wQEligible),
                                                                                b_k_eligible(bKEligible),
@@ -45,4 +46,12 @@ Position::Position(const std::map<std::string, uint64_t> &bitboards, bool wKElig
                                                                                enpassant(enpassant),
                                                                                half_moves(halfMoves), moves(moves) {}
 
-
+void Position::print_metadata() {
+    std::cout << "White to move: "
+    << white_to_move << "\n"
+    << "White Castle Kingside: " << w_k_eligible << "\n"
+    << "White Castle Queenside: " << w_q_eligible << "\n"
+    << "Black Castle Kingside: " << b_k_eligible << "\n"
+    << "Black Castle Queenside: " << b_q_eligible << "\n"
+    << "Enpassant Square: " << enpassant << "\n" << std::endl;
+}
