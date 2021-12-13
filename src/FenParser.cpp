@@ -13,7 +13,9 @@ Position FenParser::parse(std::string fen) {
     int enpassant;
     bool enpassant_passed = false;
     int half_moves;
+    bool half_moves_passed = false;
     int moves;
+    bool moves_passed = false;
 
     int post_board_space_count = 0;
 
@@ -114,7 +116,6 @@ Position FenParser::parse(std::string fen) {
                         b_k_eligible = false;
                         b_q_eligible = false;
                     } else {
-                        // TODO: Figure out why black is always allowed to castle
                         switch(fen.at(i)){
                             case 'K':
                                 w_k_eligible = true;
@@ -137,14 +138,37 @@ Position FenParser::parse(std::string fen) {
                         enpassant = -1;
                     } else {
                         if(!enpassant_passed){
-//                            std::cout << fen.substr(i,2) << std::endl;
                             enpassant = u.notation_to_square(fen.substr(i, 2));
                             enpassant_passed = true;
                         }
                     }
                 }
-                if(post_board_space_count == 4){
-
+                if(post_board_space_count == 4 && !half_moves_passed){
+                    size_t x = i;
+                    int num_digits = 0;
+                    while(isdigit(fen.at(x))){
+                        num_digits++;
+                        x++;
+                    }
+                    half_moves = std::stoi(fen.substr(i, num_digits));
+                    half_moves_passed = true;
+                }
+                // TODO: Figure out why this doesn't work
+                if(post_board_space_count == 5 && !moves_passed){
+                    size_t x = i;
+                    int num_digits = 0;
+                    while(x <= fen.length()){
+                        if(isdigit(fen.at(x))){
+                            num_digits++;
+                            x++;
+                        }
+                    }
+//                    while(isdigit(fen.at(x))){
+//                        num_digits++;
+//                        x++;
+//                    }
+                    moves = std::stoi(fen.substr(i, num_digits));
+                    moves_passed = true;
                 }
             }
         }
@@ -169,7 +193,7 @@ Position FenParser::parse(std::string fen) {
     // Return the map containing all the bitboards
 //    return bitboards;
 
-    return Position(bitboards, white_to_move, w_k_eligible, w_q_eligible, b_k_eligible, b_q_eligible, enpassant, 10, 5);
+    return Position(bitboards, white_to_move, w_k_eligible, w_q_eligible, b_k_eligible, b_q_eligible, enpassant, half_moves, 5);
 }
 
 // Internal utility method to change the bit from 1 to 0 at the right position on the bitboard

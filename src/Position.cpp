@@ -53,5 +53,8 @@ void Position::print_metadata() {
     << "White Castle Queenside: " << w_q_eligible << "\n"
     << "Black Castle Kingside: " << b_k_eligible << "\n"
     << "Black Castle Queenside: " << b_q_eligible << "\n"
-    << "Enpassant Square: " << enpassant << "\n" << std::endl;
+    << "Enpassant Square: " << enpassant << "\n"
+    << "Half moves: " << std::to_string(half_moves) << "\n"
+    << "Moves: " << std::to_string(moves)
+    <<std::endl;
 }
