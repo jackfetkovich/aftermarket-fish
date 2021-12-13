@@ -2,7 +2,7 @@
 #include "FenParser.h"
 #include <iostream>
 
-std::map<std::string, uint64_t> FenParser::parse(std::string fen) {
+Position FenParser::parse(std::string fen) {
 
     uint64_t white_pawns = 0b0000000000000000000000000000000000000000000000000000000000000000;
     uint64_t white_rooks = 0b0000000000000000000000000000000000000000000000000000000000000000;
@@ -17,6 +17,10 @@ std::map<std::string, uint64_t> FenParser::parse(std::string fen) {
     uint64_t black_bishops = 0b0000000000000000000000000000000000000000000000000000000000000000;
     uint64_t black_queens = 0b0000000000000000000000000000000000000000000000000000000000000000;
     uint64_t black_king = 0b0000000000000000000000000000000000000000000000000000000000000000;
+
+    uint64_t white_pieces = 0b0000000000000000000000000000000000000000000000000000000000000000;
+    uint64_t black_pieces = 0b0000000000000000000000000000000000000000000000000000000000000000;
+    uint64_t all_pieces = 0b0000000000000000000000000000000000000000000000000000000000000000;
 
     // Number of squares that have been accounted for on the board, should reach 64
     int board_pos = 0;
@@ -106,10 +110,15 @@ std::map<std::string, uint64_t> FenParser::parse(std::string fen) {
     bitboards.insert({"black_king", black_king});
 
     // Return the map containing all the bitboards
-    return bitboards;
+//    return bitboards;
+
+    return Position(bitboards, false, false, false, false, -1, 10, 5);
 }
 
 // Internal utility method to change the bit from 1 to 0 at the right position on the bitboard
 void FenParser::add_piece(uint64_t &bitboard, int pos) {
     bitboard |= 1UL << pos;
+}
+
+
 }

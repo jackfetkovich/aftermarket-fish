@@ -1,9 +1,10 @@
 #include <iostream>
 #include "Position.h"
+#include "Util.h"
 
 int main(int argc, char *argv[]){
-//    Position p = Position();
-//    p.print_bitboards();
-    Position r = Position();
-    r.print_bitboards(true);
+
+    Util u = Util();
+    std::cout << std::to_string(u.notation_to_square("e3"));
+
 }

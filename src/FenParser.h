@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "Position.h"
 
 #ifndef CHESSENGINE_FEN_PARSER_H
 #define CHESSENGINE_FEN_PARSER_H
@@ -11,7 +12,7 @@
 
 class FenParser {
 public:
-    std::map<std::string, uint64_t> parse(std::string fen);
+    Position parse(std::string fen);
 private:
     void add_piece(uint64_t &bitboard, int pos);
 };

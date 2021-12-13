@@ -8,9 +8,17 @@
 
 class Position {
     std::map<std::string, uint64_t> bitboards;
+    bool w_k_eligible;
+    bool w_q_eligible;
+    bool b_k_eligible;
+    bool b_q_eligible;
+    int enpassant;
+    int half_moves;
+    int moves;
 public:
-    Position();
-    Position(std::string fen);
+    Position(const std::map<std::string, uint64_t> &bitboards, bool wKEligible, bool wQEligible, bool bKEligible,
+             bool bQEligible, int enpassant, int halfMoves, int moves);
+
     void print_bitboards(bool graphical);
 };
 
