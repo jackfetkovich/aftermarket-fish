@@ -4,6 +4,8 @@
 #include <iostream>
 
 Position FenParser::parse(std::string fen) {
+    // Space added so we don't exceed the length of the string when parsing the number of total moves
+    fen = fen + " ";
     Util u = Util();
     bool white_to_move;
     bool w_k_eligible = false;
@@ -153,21 +155,16 @@ Position FenParser::parse(std::string fen) {
                     half_moves = std::stoi(fen.substr(i, num_digits));
                     half_moves_passed = true;
                 }
-                // TODO: Figure out why this doesn't work
                 if(post_board_space_count == 5 && !moves_passed){
                     size_t x = i;
                     int num_digits = 0;
-                    while(x <= fen.length()){
-                        if(isdigit(fen.at(x))){
-                            num_digits++;
-                            x++;
-                        }
+                    while(isdigit(fen.at(x))){
+                        num_digits++;
+                        x++;
                     }
-//                    while(isdigit(fen.at(x))){
-//                        num_digits++;
-//                        x++;
-//                    }
+
                     moves = std::stoi(fen.substr(i, num_digits));
+                    std::cout << std::to_string(moves) << "\n";
                     moves_passed = true;
                 }
             }
@@ -193,7 +190,7 @@ Position FenParser::parse(std::string fen) {
     // Return the map containing all the bitboards
 //    return bitboards;
 
-    return Position(bitboards, white_to_move, w_k_eligible, w_q_eligible, b_k_eligible, b_q_eligible, enpassant, half_moves, 5);
+    return Position(bitboards, white_to_move, w_k_eligible, w_q_eligible, b_k_eligible, b_q_eligible, enpassant, half_moves, moves);
 }
 
 // Internal utility method to change the bit from 1 to 0 at the right position on the bitboard
