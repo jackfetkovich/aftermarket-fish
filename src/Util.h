@@ -9,6 +9,7 @@
 class Util {
 public:
     int notation_to_square(std::string notation);
+    void print_bitboard(uint64_t board, std::string board_name);
 };
 
 

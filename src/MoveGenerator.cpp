@@ -1,6 +1,7 @@
 #include <iostream>
 #include <bitset>
 #include "MoveGenerator.h"
+#include "Util.h"
 
 /*
  * A note on structure:
@@ -21,11 +22,8 @@ void MoveGenerator::generate_bitboards() {
                    p.bitboards["black_bishops"] ^ p.bitboards["black_queens"] ^ p.bitboards["black_king"];
     all_pieces = white_pieces ^ black_pieces;
 
-    std::string white_pieces_str = std::bitset<64>(white_pieces).to_string();
-    std::string black_pieces_str = std::bitset<64>(black_pieces).to_string();
-    std::string all_pieces_str = std::bitset<64>(all_pieces).to_string();
-
-    std::cout << white_pieces_str << std::endl;
-    std::cout << black_pieces_str << std::endl;
-    std::cout << all_pieces_str << std::endl;
+    Util u = Util();
+    u.print_bitboard(white_pieces, "White Pieces");
+    u.print_bitboard(black_pieces, "Black Pieces");
+    u.print_bitboard(all_pieces, "All Pieces");
 }

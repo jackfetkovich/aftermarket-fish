@@ -3,6 +3,7 @@
 #include <bitset>
 #include "Position.h"
 #include "FenParser.h"
+#include "Util.h"
 
 
 //Position::Position() {
@@ -11,22 +12,10 @@
 //}
 
 void Position::print_bitboards(bool graphical) {
+    Util u = Util();
     if (graphical) {
         for (auto x: this->bitboards) {
-            std::string board = std::bitset<64>(x.second).to_string();
-            std::cout << "******  " << x.first << "  ******" << std::endl;
-            for (int i = board.length() - 1; i >= 0; i--) {
-                if (board.at(i) == '0') {
-                    std::cout << '.';
-                } else {
-                    std::cout << board.at(i);
-                }
-
-                if ((i) % 8 == 0) {
-                    std::cout << "\n";
-                }
-            }
-            std::cout << std::endl;
+            u.print_bitboard(x.second, x.first);
         }
     } else {
         for (auto x: this->bitboards) {
