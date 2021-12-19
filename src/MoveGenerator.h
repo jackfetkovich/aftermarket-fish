@@ -10,8 +10,13 @@
 class MoveGenerator {
 public:
     Position p;
-
-
+    MoveGenerator(Position &p);
+    int num_legal_moves;
+    uint64_t white_pieces;
+    uint64_t black_pieces;
+    uint64_t all_pieces;
+private:
+    void generate_bitboards();
 
 };
 
