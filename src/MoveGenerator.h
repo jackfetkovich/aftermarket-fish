@@ -15,9 +15,10 @@ public:
     uint64_t white_pieces;
     uint64_t black_pieces;
     uint64_t all_pieces;
+
 private:
     void generate_bitboards();
-
+    void generate_diagonal(int init_pos);
 };
 
 
