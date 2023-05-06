@@ -1,2 +1,2 @@
 # aftermarket-fish
-A chess engine
+A chess engine (for now just a somewhat working FEN parser)
